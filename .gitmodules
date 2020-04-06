@@ -1,0 +1,4 @@
+[submodule "_build/builder"]
+	path = _build/builder
+	url = https://github.com//SintezCode/modx-packageBuilder.git
+	branch = master
