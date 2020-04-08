@@ -16,9 +16,7 @@ foreach($sconfig?:[] as $snippet=>$options){
             'snippet' => trim(str_replace(['<?php', '?>'], '', file_get_contents($snippet_file))),
             'source' => 1,
         ],
-        'options'=>[
-            'search_by'=>['name'],
-        ],
+        'options'=>$config['data_options']['modSnippet'],
         'relations'=>[
             'modCategory'=>[
                 'main'=>'Snippets'
