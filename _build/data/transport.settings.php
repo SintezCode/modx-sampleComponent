@@ -8,7 +8,7 @@ $data['modSystemSetting']=[
             'value'=>'sample_value',
             'xtype'=>'textfield',
             'namespace'=>$config['component']['namespace'],
-            'area'=>'sample_area'
+            'area'=>$config['component']['namespace'].'.main'
         ],
         'options'=>$config['data_options']['modSystemSetting']
     ],
