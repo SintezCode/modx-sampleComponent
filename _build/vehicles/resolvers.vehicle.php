@@ -2,20 +2,28 @@
 if(!class_exists('modxVehicleResolver')){
     class modxVehicleResolver{
         public $modx=null;
+        public $service=null;
+        
+        
         public function __construct(&$modx,$options,&$object){
             $this->modx=$modx;
             $this->config=$options['component'];
             $this->options=$options;
             $this->object=$object;
+            
+            $this->config['corePath']=$this->modx->getOption(
+                $this->config['namespace'].'.core_path', null,
+                $this->modx->getOption('core_path').'components/'.$this->config['namespace'].'/'
+            );
+            $this->config['modelPath']=$this->config['corePath'].($this->config['modelPath']?:('model/'));
+            $this->config['servicePath']=$this->config['servicePath']?($this->config['corePath'].$this->config['servicePath']):($this->config['modelPath'].$this->config['namespace'].'/');
         }
+        
         public function loadService(){
-            $this->service=$modx->getService(
+            $this->service=$this->modx->getService(
                 $this->config['namespace'],
                 $this->config['name'],
-                $modx->getOption(
-                    $this->config['namespace'].'.core_path', null,
-                    $modx->getOption('core_path').'components/'.$this->config['namespace'].'/'
-                ).'model/'.$this->config['namespace'].'/'
+                $this->config['servicePath']
             );
         }
         public function run(){

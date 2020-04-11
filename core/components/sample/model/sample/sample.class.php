@@ -27,6 +27,7 @@ class Sample
             'connectorUrl' => $connectorUrl,
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
+            'servicePath' => $corePath . 'model/'.static::NAMESPACE.'/',
             'chunksPath' => $corePath . 'elements/chunks/',
             'templatesPath' => $corePath . 'elements/templates/',
             'chunkSuffix' => '.chunk.tpl',
@@ -36,6 +37,8 @@ class Sample
 
         $this->modx->lexicon->load(static::NAMESPACE.':default');
         $this->authenticated = $this->modx->user->isAuthenticated($this->modx->context->get('key'));
+        $this->loadModel();
+        
         spl_autoload_register(array($this,'autoload'));
     }
 
@@ -64,5 +67,11 @@ class Sample
                 $this->modx->controller->addJavascript($this->config['assetsUrl'].'mgr/js/'.static::NAMESPACE.'.js');
             }
         }
+    }
+    
+    public function loadModel(){
+        //Ищем файл metadata
+        $metadata=$this->config['servicePath']."metadata.".$this->modx->config['dbtype'].'.php';
+        if(file_exists($metadata))$this->modx->addPackage(static::NAMESPACE, $this->config['modelPath']);
     }
 }
