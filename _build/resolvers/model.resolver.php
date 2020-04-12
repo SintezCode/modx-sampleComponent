@@ -26,6 +26,7 @@ if(!class_exists('modxModelResolver')){
             $meta_file=$this->config['servicePath']."metadata.".$this->modx->config['dbtype'].'.php';
             include $meta_file;
             foreach($xpdo_meta_map as $baseclass=>$arr){
+                if(strpos($baseclass,'xPDO')!==0)continue;
                 foreach($arr as $class){
                     $this->resolveTableByClass($class);
                 }
