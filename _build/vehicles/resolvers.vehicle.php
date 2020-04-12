@@ -22,7 +22,7 @@ if(!class_exists('modxVehicleResolver')){
         public function loadService(){
             $this->service=$this->modx->getService(
                 $this->config['namespace'],
-                $this->config['name'],
+                $this->config['serviceName']?:$this->config['name'],
                 $this->config['servicePath']
             );
         }
