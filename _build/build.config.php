@@ -10,7 +10,7 @@ $config=[
     'component'=>[
         'namespace'=>'sample',
         'name'=>'Sample',
-        'version'=>'0.3.5',
+        'version'=>'0.4.0',
         'release'=>'alpha',
         //'core'=>dirname(__DIR__).'/core/components/',
         //'assets'=>dirname(__DIR__).'/assets/components/',
@@ -21,6 +21,12 @@ $config=[
         'attributes'=>[
             'requires'=>['php' => '>=7.1'],
             'setup-options'=>['source' => __DIR__.'/setup.options.php']
+        ],
+        'packages' => [
+            'MIGX'=>[
+                'version' => '2.12.0-pl',
+                //'service_url' => 'modstore.pro',
+            ],
         ]
     ],
 ];

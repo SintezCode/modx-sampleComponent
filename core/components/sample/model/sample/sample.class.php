@@ -33,6 +33,7 @@ class Sample
             'chunkSuffix' => '.chunk.tpl',
             'snippetsPath' => $corePath . 'elements/snippets/',
             'processorsPath' => $corePath . 'processors/',
+            'vendorPath' => $corePath . 'vendor/',
         ), $config);
 
         $this->modx->lexicon->load(static::NAMESPACE.':default');
@@ -40,6 +41,7 @@ class Sample
         $this->loadModel();
         
         spl_autoload_register(array($this,'autoload'));
+        if(is_dir($this->config['vendorPath']))require $this->config['vendorPath'].'autoload.php';
     }
 
     public function initialize($scriptProperties = array(),$ctx = 'web')
