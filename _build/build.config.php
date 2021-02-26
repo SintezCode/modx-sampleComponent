@@ -4,24 +4,33 @@ $config=[
     'project'=>dirname(__DIR__).'/',
     'build'=>__DIR__.'/',
     'resolvers' => __DIR__ . '/resolvers/',
+    'vehicles' => __DIR__ . '/vehicles/',
     'includes' => __DIR__ . '/includes/',
     'data' => __DIR__ . '/data/',
     'component'=>[
         'namespace'=>'sample',
         'name'=>'Sample',
-        'version'=>'0.1',
+        'version'=>'0.4.0',
         'release'=>'alpha',
         //'core'=>dirname(__DIR__).'/core/components/',
         //'assets'=>dirname(__DIR__).'/assets/components/',
         'resolvers'=>[
-            
+            'before'=>[],
+            'after'=>[]
         ],
         'attributes'=>[
-            'requires'=>['php' => '>=5.4'],
+            'requires'=>['php' => '>=7.1'],
             'setup-options'=>['source' => __DIR__.'/setup.options.php']
+        ],
+        'packages' => [
+            'MIGX'=>[
+                'version' => '2.12.0-pl',
+                //'service_url' => 'modstore.pro',
+            ],
         ]
     ],
 ];
+require(__DIR__.'/data.config.php');
 require(__DIR__.'/env.config.php');
 
 if(!$config['component']['core']){
@@ -31,32 +40,7 @@ if(!$config['component']['assets']){
     $config['component']['assets']=$config['project'].'assets/components/'.$config['component']['namespace'].'/';
 }
 
-if(!$config['component']['resolvers']['core']){
-    $config['component']['resolvers']['core']=[
-        'type'=>'file',
-        'options'=>[
-            'source' => $config['component']['core'],
-            'target' => "return MODX_CORE_PATH . 'components/';",
-        ]
-    ];
-}
-if(!$config['component']['resolvers']['assets']){
-    $config['component']['resolvers']['assets']=[
-        'type'=>'file',
-        'options'=>[
-            'source' => $config['component']['assets'],
-            'target' => "return MODX_ASSETS_PATH . 'components/';",
-        ]
-    ];
-}
-if(!$config['component']['resolvers']['options']){
-    $config['component']['resolvers']['options']=[
-        'type'=>'php',
-        'options'=>[
-            'source' => $config['resolvers'] . 'setupoptions.resolver.php',
-        ]
-    ];
-}
+require(__DIR__.'/resolvers.config.php');
 
 if(!$config['component']['attributes']['changelog']&&file_exists($config['component']['core'].'docs/changelog.txt')){
     $config['component']['attributes']['changelog']=file_get_contents($config['component']['core'].'docs/changelog.txt');
